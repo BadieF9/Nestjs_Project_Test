@@ -10,7 +10,9 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthGuard } from './auth.guard';
+import { Roles } from 'src/roles/roles.decorator';
+import { Role } from 'src/enums/role.enum';
+import { RolesGuard } from 'src/roles/roles.guard';
 
 export const Public = () => SetMetadata('isPublic', true);
 
@@ -25,8 +27,9 @@ export class AuthController {
     return this.authService.signIn(signInDto.email, signInDto.password);
   }
 
-  @UseGuards(AuthGuard)
   @Get('profile')
+  @UseGuards(RolesGuard)
+  @Roles(Role.Farmer)
   getProfile(@Request() req) {
     return req.user;
   }
