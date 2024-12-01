@@ -16,5 +16,5 @@ export class Order {
   status: string;
 
   @ManyToOne(() => Farmer, (farmer) => farmer.orders)
-  farmer: number;
+  farmer: Farmer;
 }
