@@ -31,6 +31,6 @@ export class AuthController {
   @UseGuards(RolesGuard)
   @Roles(Role.Farmer)
   getProfile(@Request() req) {
-    return req.user;
+    return req.farmer;
   }
 }
