@@ -9,6 +9,8 @@ import { Silo } from './entities/silo.entity';
 import { AuthModule } from './auth/auth.module';
 import { FarmersModule } from './farmers/farmers.module';
 import { OrdersModule } from './orders/orders.module';
+import { CacheModule, CacheStore } from '@nestjs/cache-manager';
+import { redisStore } from 'cache-manager-redis-yet';
 
 @Module({
   imports: [
@@ -27,6 +29,22 @@ import { OrdersModule } from './orders/orders.module';
         entities: [Farmer, Order, Silo],
         synchronize: true,
       }),
+    }),
+    CacheModule.registerAsync({
+      isGlobal: true,
+      useFactory: async () => {
+        const store = await redisStore({
+          socket: {
+            host: 'localhost',
+            port: 6379,
+          },
+        });
+
+        return {
+          store: store as unknown as CacheStore,
+          ttl: 60 * 60000, // 60 minutes (milliseconds)
+        };
+      },
     }),
     AuthModule,
     FarmersModule,
