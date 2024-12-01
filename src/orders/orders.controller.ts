@@ -4,6 +4,7 @@ import {
   Get,
   Patch,
   Post,
+  Query,
   Request,
   UseGuards,
   UseInterceptors,
@@ -25,8 +26,16 @@ export class OrdersController {
   @Get()
   @UseInterceptors(CacheInterceptor)
   @CacheTTL(10 * 60000)
-  getOrders(@Request() req) {
-    return this.ordersService.getOrders(req.farmer.sub);
+  getOrders(
+    @Request() req,
+    @Query('page') page: number = 1,
+    @Query('pageSize') pageSize: number = 10,
+  ) {
+    return this.ordersService.getOrdersWithPagination(
+      req.farmer.sub,
+      page,
+      pageSize,
+    );
   }
 
   @Post()

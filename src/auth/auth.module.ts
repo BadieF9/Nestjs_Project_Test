@@ -8,6 +8,7 @@ import { jwtConstants } from './constants';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
 import { FarmersService } from 'src/farmers/farmers.service';
+import { Order } from 'src/entities/order.entity';
 
 @Global()
 @Module({
@@ -17,7 +18,7 @@ import { FarmersService } from 'src/farmers/farmers.service';
       secret: jwtConstants.secret,
       signOptions: { expiresIn: '60m' },
     }),
-    TypeOrmModule.forFeature([Farmer]),
+    TypeOrmModule.forFeature([Farmer, Order]),
   ],
   controllers: [AuthController],
   providers: [

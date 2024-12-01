@@ -26,11 +26,24 @@ export class OrdersService {
     return this.ordersRepository.save(newOrder);
   }
 
-  async getOrders(farmerId: number): Promise<Order[]> {
-    const farmer = await this.farmerService.getFarmerByIdWithOrders(farmerId);
+  async getOrdersWithPagination(
+    farmerId: number,
+    page: number,
+    pageSize: number,
+  ): Promise<Order[]> {
+    const skip = (page - 1) * pageSize;
+    const farmer =
+      await this.farmerService.getFarmerByIdWithOrdersAndPagination(
+        farmerId,
+        page,
+        pageSize,
+      );
 
     if (farmer.roles.includes(Role.Admin)) {
-      return this.ordersRepository.find();
+      return this.ordersRepository.find({
+        skip,
+        take: pageSize,
+      });
     } else {
       return farmer.orders ?? [];
     }
