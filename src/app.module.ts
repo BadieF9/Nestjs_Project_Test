@@ -11,6 +11,8 @@ import { FarmersModule } from './farmers/farmers.module';
 import { OrdersModule } from './orders/orders.module';
 import { CacheModule, CacheStore } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -46,11 +48,23 @@ import { redisStore } from 'cache-manager-redis-yet';
         };
       },
     }),
+    ThrottlerModule.forRoot([
+      {
+        ttl: 60000, // ms
+        limit: 20,
+      },
+    ]),
     AuthModule,
     FarmersModule,
     OrdersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+    AppService,
+  ],
 })
 export class AppModule {}
