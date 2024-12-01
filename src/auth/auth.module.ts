@@ -7,7 +7,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './constants';
 import { APP_GUARD } from '@nestjs/core';
 import { AuthGuard } from './auth.guard';
-import { FarmerService } from 'src/farmer/farmer.service';
+import { FarmersService } from 'src/farmers/farmers.service';
 
 @Global()
 @Module({
@@ -25,7 +25,7 @@ import { FarmerService } from 'src/farmer/farmer.service';
       provide: APP_GUARD,
       useClass: AuthGuard,
     },
-    FarmerService,
+    FarmersService,
     AuthService,
   ],
 })

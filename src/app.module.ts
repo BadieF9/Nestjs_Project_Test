@@ -7,7 +7,8 @@ import { Farmer } from './entities/farmer.entity';
 import { Order } from './entities/order.entity';
 import { Silo } from './entities/silo.entity';
 import { AuthModule } from './auth/auth.module';
-import { FarmerModule } from './farmer/farmer.module';
+import { FarmersModule } from './farmers/farmers.module';
+import { OrdersModule } from './orders/orders.module';
 
 @Module({
   imports: [
@@ -28,7 +29,8 @@ import { FarmerModule } from './farmer/farmer.module';
       }),
     }),
     AuthModule,
-    FarmerModule,
+    FarmersModule,
+    OrdersModule,
   ],
   controllers: [AppController],
   providers: [AppService],

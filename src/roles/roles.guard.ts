@@ -2,13 +2,13 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { Role } from 'src/enums/role.enum';
 import { ROLES_KEY } from './roles.decorator';
-import { FarmerService } from 'src/farmer/farmer.service';
+import { FarmersService } from 'src/farmers/farmers.service';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
   constructor(
     private reflector: Reflector,
-    private farmerService: FarmerService,
+    private farmerService: FarmersService,
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
