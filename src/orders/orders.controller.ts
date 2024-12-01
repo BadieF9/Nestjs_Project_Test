@@ -24,7 +24,7 @@ export class OrdersController {
 
   @Get()
   @UseInterceptors(CacheInterceptor)
-  @CacheTTL(60000)
+  @CacheTTL(10 * 60000)
   getOrders(@Request() req) {
     return this.ordersService.getOrders(req.farmer.sub);
   }

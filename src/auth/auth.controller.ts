@@ -8,11 +8,13 @@ import {
   Request,
   SetMetadata,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/enums/role.enum';
 import { RolesGuard } from 'src/roles/roles.guard';
+import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 
 export const Public = () => SetMetadata('isPublic', true);
 
@@ -28,6 +30,8 @@ export class AuthController {
   }
 
   @Get('profile')
+  @UseInterceptors(CacheInterceptor)
+  @CacheTTL(30 * 60000)
   @UseGuards(RolesGuard)
   @Roles(Role.Farmer)
   getProfile(@Request() req) {
