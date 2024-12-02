@@ -37,8 +37,8 @@ import { APP_GUARD } from '@nestjs/core';
       useFactory: async () => {
         const store = await redisStore({
           socket: {
-            host: 'localhost',
-            port: 6379,
+            host: process.env.REDIS_HOST || 'localhost',
+            port: Number(process.env.REDIS_PORT) || 6379,
           },
         });
 
