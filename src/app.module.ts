@@ -13,6 +13,7 @@ import { CacheModule, CacheStore } from '@nestjs/cache-manager';
 import { redisStore } from 'cache-manager-redis-yet';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
+import { SilosModule } from './silos/silos.module';
 
 @Module({
   imports: [
@@ -57,6 +58,7 @@ import { APP_GUARD } from '@nestjs/core';
     AuthModule,
     FarmersModule,
     OrdersModule,
+    SilosModule,
   ],
   controllers: [AppController],
   providers: [

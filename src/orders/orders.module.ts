@@ -4,11 +4,13 @@ import { OrdersService } from './orders.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Order } from 'src/entities/order.entity';
 import { Farmer } from 'src/entities/farmer.entity';
-import { FarmersModule } from 'src/farmers/farmers.module';
+import { SilosService } from 'src/silos/silos.service';
+import { Silo } from 'src/entities/silo.entity';
+import { FarmersService } from 'src/farmers/farmers.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Order, Farmer]), FarmersModule],
-  providers: [OrdersService],
+  imports: [TypeOrmModule.forFeature([Order, Farmer, Silo])],
+  providers: [OrdersService, SilosService, FarmersService],
   controllers: [OrdersController],
   exports: [OrdersService],
 })
