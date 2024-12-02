@@ -4,6 +4,9 @@ export class CreateOrderDto {
   @IsOptional()
   id: number;
 
+  @IsNumber()
+  siloId: number;
+
   @IsString()
   grainType: string;
 
@@ -17,6 +20,10 @@ export class CreateOrderDto {
 export class UpdateOrderDto {
   @IsNumber()
   id: number;
+
+  @IsNumber()
+  @IsOptional()
+  siloId: number;
 
   @IsString()
   @IsOptional()

@@ -1,5 +1,6 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Farmer } from './farmer.entity';
+import { Silo } from './silo.entity';
 
 @Entity()
 export class Order {
@@ -14,6 +15,9 @@ export class Order {
 
   @Column()
   status: string;
+
+  @ManyToOne(() => Silo, (silo) => silo.orders)
+  silo: Silo;
 
   @ManyToOne(() => Farmer, (farmer) => farmer.orders)
   farmer: Farmer;

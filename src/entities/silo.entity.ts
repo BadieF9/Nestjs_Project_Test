@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Order } from './order.entity';
 
 @Entity()
 export class Silo {
@@ -10,4 +11,7 @@ export class Silo {
 
   @Column()
   currentStock: number;
+
+  @OneToMany(() => Order, (order) => order.silo)
+  orders: Order[];
 }
