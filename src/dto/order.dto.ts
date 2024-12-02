@@ -1,4 +1,5 @@
 import { IsNumber, IsOptional, IsString } from 'class-validator';
+import { OrderStatus } from 'src/enums/order-status.enum';
 
 export class CreateOrderDto {
   @IsOptional()
@@ -12,9 +13,6 @@ export class CreateOrderDto {
 
   @IsNumber()
   quantity: number;
-
-  @IsString()
-  status: string;
 }
 
 export class UpdateOrderDto {
@@ -35,5 +33,5 @@ export class UpdateOrderDto {
 
   @IsString()
   @IsOptional()
-  status: string;
+  status: OrderStatus;
 }

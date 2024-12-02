@@ -1,6 +1,7 @@
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Farmer } from './farmer.entity';
 import { Silo } from './silo.entity';
+import { OrderStatus } from 'src/enums/order-status.enum';
 
 @Entity()
 export class Order {
@@ -13,8 +14,8 @@ export class Order {
   @Column()
   quantity: number;
 
-  @Column()
-  status: string;
+  @Column({ type: 'enum', enum: OrderStatus, default: OrderStatus.PENDING })
+  status: OrderStatus;
 
   @ManyToOne(() => Silo, (silo) => silo.orders)
   silo: Silo;
