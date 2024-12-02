@@ -18,6 +18,7 @@ export class AuthService {
     if (!farmer || farmer?.password !== pass) {
       throw new UnauthorizedException();
     }
+    
     const payload = { sub: farmer.id, email: farmer.email };
     return {
       access_token: await this.jwtService.signAsync(payload),

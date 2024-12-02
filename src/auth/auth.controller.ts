@@ -22,8 +22,8 @@ export const Public = () => SetMetadata('isPublic', true);
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @HttpCode(HttpStatus.OK)
   @Post('login')
+  @HttpCode(HttpStatus.OK)
   @Public()
   signIn(@Body() signInDto: Record<string, any>) {
     return this.authService.signIn(signInDto.email, signInDto.password);
