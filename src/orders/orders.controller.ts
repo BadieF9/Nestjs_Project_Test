@@ -15,7 +15,7 @@ import { OrdersService } from './orders.service';
 import { RolesGuard } from 'src/roles/roles.guard';
 import { Roles } from 'src/roles/roles.decorator';
 import { Role } from 'src/enums/role.enum';
-import { CreateOrderDto, UpdateOrderDto } from 'src/dto/order.dto';
+import { CreateOrderDto, UpdateOrderDto } from 'src/orders/dto/order.dto';
 import { IsQuantityPositivePipe } from 'src/is-quantity-positive/is-quantity-positive.pipe';
 import { CacheInterceptor, CacheTTL } from '@nestjs/cache-manager';
 

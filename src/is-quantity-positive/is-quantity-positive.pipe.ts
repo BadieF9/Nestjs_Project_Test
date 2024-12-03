@@ -5,7 +5,7 @@ import {
   Injectable,
   PipeTransform,
 } from '@nestjs/common';
-import { CreateOrderDto, UpdateOrderDto } from 'src/dto/order.dto';
+import { CreateOrderDto, UpdateOrderDto } from 'src/orders/dto/order.dto';
 
 @Injectable()
 export class IsQuantityPositivePipe implements PipeTransform {

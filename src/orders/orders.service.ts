@@ -5,7 +5,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateOrderDto } from 'src/dto/order.dto';
+import { CreateOrderDto } from 'src/orders/dto/order.dto';
 import { Farmer } from 'src/entities/farmer.entity';
 import { Order } from 'src/entities/order.entity';
 import { Role } from 'src/enums/role.enum';
