@@ -6,7 +6,6 @@ import {
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateOrderDto } from 'src/orders/dto/order.dto';
-import { Farmer } from 'src/entities/farmer.entity';
 import { Order } from 'src/entities/order.entity';
 import { Role } from 'src/enums/role.enum';
 import { FarmersService } from 'src/farmers/farmers.service';
@@ -51,22 +50,21 @@ export class OrdersService {
     farmerId: number,
     page: number,
     pageSize: number,
-  ): Promise<Order[]> {
+  ): Promise<[Order[], number]> {
     const skip = (page - 1) * pageSize;
-    const farmer =
-      await this.farmersService.getFarmerByIdWithOrdersAndPagination(
-        farmerId,
-        page,
-        pageSize,
-      );
+    const farmer = await this.farmersService.getFarmerById(farmerId);
 
     if (farmer.roles.includes(Role.Admin)) {
-      return this.ordersRepository.find({
+      return this.ordersRepository.findAndCount({
         skip,
         take: pageSize,
       });
     } else {
-      return farmer.orders ?? [];
+      return await this.ordersRepository.findAndCount({
+        where: { farmer: farmer },
+        skip,
+        take: pageSize,
+      });
     }
   }
 
